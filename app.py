@@ -4,6 +4,7 @@ import dash_bootstrap_components as dbc
 app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP]
 )
+server = app.server
 
 app.layout = dbc.Alert(
     "Hello, Bootstrap!", className="m-5"
