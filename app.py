@@ -10,4 +10,4 @@ app.layout = dbc.Alert(
 )
 
 if __name__ == "__main__":
-    app.run_server()
+    app.run_server(debug=False)
