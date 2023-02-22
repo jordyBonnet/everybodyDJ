@@ -15,9 +15,12 @@ to update the requirements
 pip freeze > requirements.txt
 ```
 
-## Heroku
-double authentication with Authy on the smartphone
+## PythonEverywhere
 
+
+mkvirtualenv myvirtualenv --python=/usr/bin/python3.8
+cd everybodyDJ§
+pip install -r requirements.txt
 
 
 [Active.ps1 issue with powershell](https://support.enthought.com/hc/en-us/articles/360058403072-Windows-error-activate-ps1-cannot-be-loaded-because-running-scripts-is-disabled-UnauthorizedAccess-):<br>
