@@ -49,7 +49,7 @@ def menu():
                     style={'margin-top': 10}, xs=10, sm=10, md=4, lg=4, xl=4,
                 ),
                 dbc.Col(
-                    dbc.Button("🎵 Proposer la musique 🎵", id='AutEn-calcul', outline=False, color="success", className="me-1", size="sm"),
+                    dbc.Button("🎵 Proposer la musique 🎵", id='Add-song_btn', outline=False, color="success", className="me-1", size="sm"),
                     style={'margin-top': 0}, xs=10, sm=10, md=4, lg=4, xl=4,
                 ),
             ],justify="center",)

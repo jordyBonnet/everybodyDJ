@@ -19,10 +19,10 @@ app.layout = ui.main()
 ## button to add a new song to the list
 @app.callback(
     [
-        Output('AutEn-calcul', 'color'),
+        Output('Add-song_btn', 'color'),
     ],
     [
-        Input('AutEn-calcul', 'n_clicks'),
+        Input('Add-song_btn', 'n_clicks'),
     ],
     [
         State('input-song', 'value')
