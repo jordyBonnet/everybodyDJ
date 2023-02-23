@@ -28,7 +28,7 @@ def image_banner():
     return dbc.Card(
         [
             dbc.CardImg(
-                src="/home/jordyB/everybodyDJ/assets/Autensemble.png",
+                src="https://github.com/jordyBonnet/everybodyDJ/blob/main/assets/Autensemble.png?raw=true",
                 top=True,
                 style={"opacity": 1},
             ),
