@@ -29,7 +29,7 @@ def image_banner():
     return dbc.Card(
         [
             dbc.CardImg(
-                src=r"assets\Autensemble.png",
+                src="/home/jordyB/everybodyDJ/assets/Autensemble.png",
                 top=True,
                 style={"opacity": 1},
             ),

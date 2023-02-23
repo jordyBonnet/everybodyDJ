@@ -58,7 +58,7 @@ def display_value(n):
     if ctx.triggered[0]['value'] == None:
         raise PreventUpdate
     
-    con = sqlite3.connect("songs.db")
+    con = sqlite3.connect("/home/jordyB/everybodyDJ/songs.db")
     cur = con.cursor()
     res = cur.execute("SELECT * FROM songs ORDER BY score DESC")
     song_list = res.fetchall()
