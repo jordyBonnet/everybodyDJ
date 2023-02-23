@@ -29,8 +29,13 @@ pip install -r requirements.txt
 ## update code
 commit push on github with virtual studio code
 then in the bash command of PythonEverywhere write
+```
+cd everybodyDJ
+```
+Then
+```
 Git pull
-
+```
 
 [Active.ps1 issue with powershell](https://support.enthought.com/hc/en-us/articles/360058403072-Windows-error-activate-ps1-cannot-be-loaded-because-running-scripts-is-disabled-UnauthorizedAccess-):<br>
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted

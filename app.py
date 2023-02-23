@@ -35,7 +35,7 @@ def display_value(n, song_name):
         print('\nnew connexion')
         raise PreventUpdate
     
-    con = sqlite3.connect("songs.db")
+    con = sqlite3.connect("/home/jordyB/everybodyDJ/songs.db")
     cur = con.cursor()
     data =[(str(song_name), 1)]
     cur.executemany("INSERT INTO songs VALUES(?, ?)", data)
