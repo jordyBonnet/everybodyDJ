@@ -12,6 +12,15 @@ server = app.server
 
 app.layout = ui.main()
 
+DEPLOYED = False
+DEPLOYED_HOME_PATH = '/home/jordyB/everybodyDJ/'
+ASSETS_PATH = 'assets/'
+DEPLOYED_ASSETS_PATH = DEPLOYED_HOME_PATH + 'assets/'
+SONGSDB_NAME = 'songs.db'
+SONGSDB_PATH = SONGSDB_NAME
+if DEPLOYED:
+    SONGSDB_PATH = DEPLOYED_HOME_PATH + SONGSDB_NAME
+
 #################
 ### CALLBACKS ###
 #################
@@ -28,14 +37,14 @@ app.layout = ui.main()
         State('input-song', 'value')
     ]
 )
-def display_value(n, song_name):
+def display_value(_, song_name):
     # button_id = ctx.triggered_id
     # print(ctx.triggered)
     if ctx.triggered[0]['value'] == None:
         print('\nnew connexion')
         raise PreventUpdate
     
-    con = sqlite3.connect("/home/jordyB/everybodyDJ/songs.db")
+    con = sqlite3.connect(SONGSDB_PATH)
     cur = con.cursor()
     data =[(str(song_name), 1)]
     cur.executemany("INSERT INTO songs VALUES(?, ?)", data)
@@ -58,7 +67,7 @@ def display_value(n):
     if ctx.triggered[0]['value'] == None:
         raise PreventUpdate
     
-    con = sqlite3.connect("/home/jordyB/everybodyDJ/songs.db")
+    con = sqlite3.connect(SONGSDB_PATH)
     cur = con.cursor()
     res = cur.execute("SELECT * FROM songs ORDER BY score DESC")
     song_list = res.fetchall()
@@ -70,4 +79,4 @@ def display_value(n):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=False)
+    app.run_server(debug= not DEPLOYED)
