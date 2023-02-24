@@ -37,5 +37,11 @@ Then
 Git pull
 ```
 
+If message: "Your local changes to the following files would be overwritten by merge: songs.db"<br>
+do
+```
+git reset --hard origin/main
+```
+
 [Active.ps1 issue with powershell](https://support.enthought.com/hc/en-us/articles/360058403072-Windows-error-activate-ps1-cannot-be-loaded-because-running-scripts-is-disabled-UnauthorizedAccess-):<br>
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
