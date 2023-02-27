@@ -89,7 +89,7 @@ def display_value(values):
         for inp in ctx.inputs_list[0]:
             if 'value' in inp.keys():
                 song = inp['id']['index']
-                con = sqlite3.connect("songs.db")
+                con = sqlite3.connect(SONGSDB_PATH)
                 cur = con.cursor()
                 cur.execute(f'UPDATE songs SET score = score + 1 WHERE title = "{song}"')
                 con.commit()
@@ -109,7 +109,7 @@ def display_value(values):
         for inp in ctx.inputs_list[0]:
             if 'value' in inp.keys():
                 song = inp['id']['index']
-                con = sqlite3.connect("songs.db")
+                con = sqlite3.connect(SONGSDB_PATH)
                 cur = con.cursor()
                 cur.execute(f'UPDATE songs SET score = score - 1 WHERE title = "{song}"')
                 con.commit()
