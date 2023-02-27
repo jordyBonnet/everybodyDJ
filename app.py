@@ -14,7 +14,7 @@ server = app.server
 
 app.layout = ui.main()
 
-DEPLOYED = False
+DEPLOYED = True
 DEPLOYED_HOME_PATH = '/home/jordyB/everybodyDJ/'
 ASSETS_PATH = 'assets/'
 DEPLOYED_ASSETS_PATH = DEPLOYED_HOME_PATH + 'assets/'

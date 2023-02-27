@@ -43,5 +43,10 @@ do
 git reset --hard origin/main
 ```
 
+To update pip requirments
+```
+pip install -r requirements.txt
+```
+
 [Active.ps1 issue with powershell](https://support.enthought.com/hc/en-us/articles/360058403072-Windows-error-activate-ps1-cannot-be-loaded-because-running-scripts-is-disabled-UnauthorizedAccess-):<br>
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
