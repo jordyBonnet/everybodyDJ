@@ -36,7 +36,7 @@ def main():
             fullscreen=True,
             is_open=False,
         ),
-        dcc.Interval(id='songs-interval', interval=2000)
+        dcc.Interval(id='songs-interval', interval=1000)
     ])
 
 def image_banner():
@@ -73,6 +73,7 @@ def menu():
             )
         ]
         ),
+        id='forfake'
     )
 
 def style_menu():
@@ -106,9 +107,9 @@ def song_card(name, score):
                         xs=7, sm=7, md=7, lg=7, xl=7), # xs=12, sm=12, md=12, lg=8, xl=8),
                     dbc.Col(html.P(f'{score}', style={'fontSize': 12},),
                         xs=2, sm=2, md=2, lg=2, xl=2), # xs=6, sm=6, md=6, lg=2, xl=2),
-                    dbc.Col(dbc.Button("👍", id=f'{name}-Up', outline=True, color="primary", className="me-1", size="sm"),
+                    dbc.Col(dbc.Button("👍", id={'type': f'btn-Up', 'index': name}, outline=True, color="primary", className="me-1", size="sm"),
                         xs=1, sm=1, md=1, lg=1, xl=1), # xs=3, sm=6, md=6, lg=1, xl=1),
-                    dbc.Col(dbc.Button("👎", id=f'{name}-Down', outline=True, color="primary", className="me-1", size="sm"),
+                    dbc.Col(dbc.Button("👎", id={'type': f'btn-Down', 'index': name}, outline=True, color="primary", className="me-1", size="sm"),
                         xs=1, sm=1, md=1, lg=1, xl=1), # xs=3, sm=6, md=6, lg=1, xl=1),
                 ]
             )
@@ -250,7 +251,6 @@ def Aut_modal_body():
             timeout=4000, 
         ),
     ]
-
 
 def Aut_calculated(name1=None, Aut1=None, name2=None, Aut2=None, Aut_commun=None, when=None):
     # when is a tuple with the time to Aut (past or futur)

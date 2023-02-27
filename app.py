@@ -1,5 +1,5 @@
 import dash
-from dash import Input, Output, State, ctx
+from dash import Input, Output, State, ctx, ALL
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 import ui
@@ -8,7 +8,8 @@ from datetime import datetime, timedelta
 import math
 
 app = dash.Dash(
-    external_stylesheets=[dbc.themes.DARKLY]
+    external_stylesheets=[dbc.themes.DARKLY],
+    # suppress_callback_exceptions=True
 )
 server = app.server
 
@@ -76,6 +77,46 @@ def display_value(n):
     con.close()
     out = ui.song_lst_chld(song_list)
     return out
+
+## Up vote
+@app.callback(
+    Output('forfake', 'children'),      # NOT USED
+    Input({'type': 'btn-Up', 'index': ALL}, 'n_clicks'),
+    prevent_initial_call=True
+)
+def display_value(values):
+    if any(values):
+        for inp in ctx.inputs_list[0]:
+            if 'value' in inp.keys():
+                song = inp['id']['index']
+                con = sqlite3.connect("songs.db")
+                cur = con.cursor()
+                cur.execute(f'UPDATE songs SET score = score + 1 WHERE title = "{song}"')
+                con.commit()
+                con.close()
+        # print(ctx.inputs_list)
+        # print(values, ctx.triggered)
+    raise PreventUpdate
+
+## Down vote
+@app.callback(
+    Output('forfake', 'color'),       # NOT USED
+    Input({'type': 'btn-Down', 'index': ALL}, 'n_clicks'),
+    prevent_initial_call=True
+)
+def display_value(values):
+    if any(values):
+        for inp in ctx.inputs_list[0]:
+            if 'value' in inp.keys():
+                song = inp['id']['index']
+                con = sqlite3.connect("songs.db")
+                cur = con.cursor()
+                cur.execute(f'UPDATE songs SET score = score - 1 WHERE title = "{song}"')
+                con.commit()
+                con.close()
+        # print(ctx.inputs_list)
+        # print(values, ctx.triggered)
+    raise PreventUpdate
 
 ## Autensemble calcul modal opening
 @app.callback(
