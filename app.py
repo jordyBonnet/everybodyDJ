@@ -47,6 +47,9 @@ def display_value(_, song_name):
         print('\nnew connexion')
         raise PreventUpdate
     
+    if song_name == '':
+        raise PreventUpdate
+    
     con = sqlite3.connect(SONGSDB_PATH)
     cur = con.cursor()
     data =[(str(song_name), 1)]

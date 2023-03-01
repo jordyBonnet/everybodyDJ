@@ -4,22 +4,31 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
 from datetime import datetime, date
+from dash_iconify import DashIconify # https://icon-sets.iconify.design/
+
+FONT_SIZE = 28
 
 def main():
     # app layout
     return html.Div([
-        dbc.Row(         # Top image banner
+        dmc.Affix(
             [
-                dbc.Col(image_banner())
+                dbc.Row(         # Top image banner
+                    [
+                        dbc.Col(image_banner())
+                    ],
+                    # className="h-35",
+                ),
+                dbc.Row(         # Top banner with input for song name to propose
+                    [
+                        dbc.Col(menu())
+                    ],
+                    # className="h-35",
+                ),
             ],
-            # className="h-35",
+            position={"top": 0, "right": 0, "right": 0, "left":0},
         ),
-        dbc.Row(         # Top banner with input for song name to propose
-            [
-                dbc.Col(menu())
-            ],
-            # className="h-35",
-        ),
+        dmc.Space(h=300),
         dbc.Row(html.Div(children=[], id='song-chld')),
         dbc.Modal(
             [
@@ -27,7 +36,7 @@ def main():
                     "Calculez votre Autensemble ❤️",
                     variant="gradient",
                     gradient={"from": "yellow", "to": "red", "deg": 45},
-                    style={"fontSize": 30},
+                    style={"fontSize": FONT_SIZE+10},
                 ))),
                 dbc.ModalBody(Aut_modal_body()),
             ],
@@ -58,18 +67,57 @@ def menu():
             dbc.Row(
                 [
                     dbc.Col(
-                        dbc.Input(id="input-song", placeholder="Nom de la musique", type="text", size="lg"),
-                        style=style_menu(), xs=10, sm=10, md=4, lg=4, xl=4,
+                        # dbc.Input(id="input-song", placeholder="Nom de la musique", type="text", size="lg"),
+                        # style=style_menu(), xs=10, sm=10, md=4, lg=4, xl=4,
+                        dmc.TextInput(
+                            id="input-song",
+                            # label="Nom de la musique",
+                            # style={"width": 200},
+                            placeholder="Artiste - Nom de la musique",
+                            icon=DashIconify(icon="material-symbols:search-rounded"),
+                            size='xl',
+                            radius="md",
+                            style=style_menu(),
+                            # fullWidth=True,
+                        ),
+                        width={"size": 5, "offset": 0},
                     ),
                     dbc.Col(
-                        dbc.Button("AJOUTER🎵", id='Add-song_btn', outline=False, color="success", className="me-1", size="lg"),
-                        style=style_menu(), xs=10, sm=10, md=4, lg=4, xl=4,
+                        # dbc.Button("AJOUTER🎵", id='Add-song_btn', outline=False, color="success", className="me-1", size="xl"),
+                        # style=style_menu(), xs=10, sm=10, md=4, lg=4, xl=4,
+                        dmc.Button(
+                            "ENVOYER 🎵",
+                            id='Add-song_btn',
+                            variant="gradient",
+                            gradient={"from": "teal", "to": "lime", "deg": 45},
+                            size="xl",
+                            radius="md",
+                            fullWidth=True,
+                        ),
+                        # dmc.ActionIcon(
+                        #     DashIconify(icon="material-symbols:library-add"), color="indigo", variant="filled",
+                        #     id='Add-song_btn',
+                        #     size="xl",
+                        #     radius='md',
+                        #     style={'fontSize': FONT_SIZE+10},
+                        # ),
+                        width={"size": 3, "offset": 0},
                     ),
                     dbc.Col(
-                        dbc.Button("Autensemble❤️", id='AutEn-calcul', outline=False, color="warning", className="me-1", size="lg"),
-                        style=style_menu(), xs=10, sm=10, md=4, lg=4, xl=4,
+                        # dbc.Button("Autensemble❤️", id='AutEn-calcul', outline=False, color="warning", className="me-1", size="xl"),
+                        # style=style_menu(), xs=10, sm=10, md=4, lg=4, xl=4,
+                        dmc.Button(
+                            "AUTENSEMBLE ❤️",
+                            id='AutEn-calcul',
+                            variant="gradient",
+                            gradient={"from": "orange", "to": "grape", "deg": 45},
+                            size="xl",
+                            radius="md",
+                            fullWidth=True,
+                        ),
+                        width={"size": 4, "offset": 0},
                     ),
-                ],justify="center",
+                ],justify="center", className="g-1",
             )
         ]
         ),
@@ -77,25 +125,34 @@ def menu():
     )
 
 def style_menu():
-    return {'fontSize': 14}
+    return {'fontSize': FONT_SIZE}
 
 def song_lst_chld(song_list):
     # print(song_list)
-    left_col, right_col = [], []
+    # left_col, right_col = [], []
+    one_col = []
     for i, song in enumerate(song_list):
         mod = i % 2
         # print(i, mod, song[0], song[1])
-        if mod == 0:
-            left_col.append(song_card(song[0], song[1]))
-        elif mod == 1:
-            right_col.append(song_card(song[0], song[1]))
-    
+        # if mod == 0:
+        #     left_col.append(song_card(song[0], song[1]))
+        # elif mod == 1:
+        #     right_col.append(song_card(song[0], song[1]))
+        one_col.append(song_card(song[0], song[1]))
+
+    # on 1 column
     out = [dbc.Row(
         [
-            dbc.Col(left_col),
-            dbc.Col(right_col),
+            dbc.Col(one_col),
         ]
     )]
+    # on 2 columns
+    # out = [dbc.Row(
+    #     [
+    #         dbc.Col(left_col),
+    #         dbc.Col(right_col),
+    #     ]
+    # )]
     return out
 
 def song_card(name, score):
@@ -103,18 +160,20 @@ def song_card(name, score):
         dbc.CardBody(
             dbc.Row(
                 [
-                    dbc.Col(html.P(name), style={'fontSize': 18},
-                        xs=7, sm=7, md=7, lg=7, xl=7), # xs=12, sm=12, md=12, lg=8, xl=8),
-                    dbc.Col(html.P(f'{score}', style={'fontSize': 12},),
-                        xs=2, sm=2, md=2, lg=2, xl=2), # xs=6, sm=6, md=6, lg=2, xl=2),
-                    dbc.Col(dbc.Button("👍", id={'type': f'btn-Up', 'index': name}, outline=True, color="primary", className="me-1", size="sm"),
-                        xs=1, sm=1, md=1, lg=1, xl=1), # xs=3, sm=6, md=6, lg=1, xl=1),
-                    dbc.Col(dbc.Button("👎", id={'type': f'btn-Down', 'index': name}, outline=True, color="primary", className="me-1", size="sm"),
-                        xs=1, sm=1, md=1, lg=1, xl=1), # xs=3, sm=6, md=6, lg=1, xl=1),
+                    dbc.Col(html.P(name), style={'fontSize': FONT_SIZE},
+                        width=9, ), # xs=12, sm=12, md=12, lg=8, xl=8),
+                    dbc.Col(html.P(f'{score}', style={'fontSize': FONT_SIZE-8},),
+                        width=1), # xs=6, sm=6, md=6, lg=2, xl=2),
+                    dbc.Col(dbc.Button("👍", id={'type': f'btn-Up', 'index': name}, outline=True, color="primary",
+                            className="me-1", size="md"),
+                        width=1), # xs=3, sm=6, md=6, lg=1, xl=1),
+                    dbc.Col(dbc.Button("👎", id={'type': f'btn-Down', 'index': name}, outline=True, color="primary",
+                            className="me-1", size="md"),
+                        width=1), # xs=3, sm=6, md=6, lg=1, xl=1),
                 ]
             )
         ), 
-        style = {'height': 60}
+        style = {'height': 70}
     )
 
 def Aut_modal_body():
@@ -125,20 +184,31 @@ def Aut_modal_body():
                 C'est la date à partir de laquelle vous avez passé autant de temps avec votre moitié que sans elle dans votre vie.",
                 variant="gradient",
                 gradient={"from": "yellow", "to": "pink", "deg": 180},
-                style={"fontSize": 22},
+                style={"fontSize": FONT_SIZE},
             )
         ),
         
         # Conjoint 1
         dmc.Space(h=30),
         dmc.Divider(label="Conjoint 1", labelPosition="center", variant="dashed", 
-                    style={"fontSize": 16}),
+                    style={"fontSize": FONT_SIZE}),
         dbc.Row(
             [
                 dbc.Col(
                     [
-                        dbc.Input(id="input-nameC1",
-                            placeholder="Prénom conjoint n°1", type="text", size="lg",
+                        # dbc.Input(id="input-nameC1",
+                        #     placeholder="Prénom conjoint n°1", type="text", size="xl",
+                        # ),
+                        dmc.TextInput(
+                            id="input-nameC1",
+                            # label="Nom de la musique",
+                            # style={"width": 200},
+                            placeholder="Prénom conjoint n°1",
+                            # icon=DashIconify(icon="material-symbols:search-rounded"),
+                            size='xl',
+                            radius="md",
+                            style=style_menu(),
+                            # fullWidth=True,
                         ),
                     ],
                     xs=6, sm=6, md=6, lg=6, xl=6,
@@ -148,7 +218,8 @@ def Aut_modal_body():
                         dmc.Text(
                             "Date de naissance:",
                             align='right',
-                            style={"fontSize": 16},
+                            size='xl',
+                            style={"fontSize": FONT_SIZE-6},
                         )
                     ],
                     xs=2, sm=2, md=2, lg=2, xl=2,
@@ -160,6 +231,8 @@ def Aut_modal_body():
                             value=date(1990, 1, 1),      # datetime.now().date(),
                             inputFormat="DD / MM / YYYY",
                             clearable=False,
+                            size='xl',
+                            radius='md',
                         ),
                     ],
                     xs=4, sm=4, md=4, lg=4, xl=4,
@@ -175,8 +248,19 @@ def Aut_modal_body():
             [
                 dbc.Col(
                     [
-                        dbc.Input(id="input-nameC2",
-                            placeholder="Prénom conjoint n°2", type="text", size="lg",
+                        # dbc.Input(id="input-nameC2",
+                        #     placeholder="Prénom conjoint n°2", type="text", size="lg",
+                        # ),
+                        dmc.TextInput(
+                            id="input-nameC2",
+                            # label="Nom de la musique",
+                            # style={"width": 200},
+                            placeholder="Prénom conjoint n°2",
+                            # icon=DashIconify(icon="material-symbols:search-rounded"),
+                            size='xl',
+                            radius="md",
+                            style=style_menu(),
+                            # fullWidth=True,
                         ),
                     ],
                     xs=6, sm=6, md=6, lg=6, xl=6,
@@ -186,7 +270,8 @@ def Aut_modal_body():
                         dmc.Text(
                             "Date de naissance:",
                             align='right',
-                            style={"fontSize": 16},
+                            size='xl',
+                            style={"fontSize": FONT_SIZE-6},
                         )
                     ],
                     xs=2, sm=2, md=2, lg=2, xl=2,
@@ -198,6 +283,8 @@ def Aut_modal_body():
                             value=date(1990, 1, 1),      # datetime.now().date(),
                             inputFormat="DD / MM / YYYY",
                             clearable=False,
+                            size='xl',
+                            radius='md',
                         ),
                     ],
                     xs=4, sm=4, md=4, lg=4, xl=4,
@@ -208,7 +295,7 @@ def Aut_modal_body():
         # First kiss
         dmc.Space(h=30),
         dmc.Divider(label="Premier bisous 👄", labelPosition="center", variant="dashed", 
-            style={"fontSize": 16}),
+            style={"fontSize": FONT_SIZE}),
         dbc.Row(
             [
                 dbc.Col(
@@ -268,25 +355,25 @@ def Aut_calculated(name1=None, Aut1=None, name2=None, Aut2=None, Aut_commun=None
                 f"L'Autensemble de {name1} est le {Aut1}",
                 variant="filled",
                 color="pink",
-                style={"fontSize": 22},
+                style={"fontSize": FONT_SIZE},
         ),
         dmc.Text(
                 f"L'Autensemble de {name2} est le {Aut2}",
                 variant="filled",
                 color="pink",
-                style={"fontSize": 22},
+                style={"fontSize": FONT_SIZE},
         ),
         dmc.Text(
                 f"Et si on coupe la poire en deux c'est le : {Aut_commun}",
                 variant="filled",
                 color="red",
-                style={"fontSize": 22},
+                style={"fontSize": FONT_SIZE},
         ),
         dmc.Text(
                 txt,
                 variant="filled",
                 color="orange",
-                style={"fontSize": 22},
+                style={"fontSize": FONT_SIZE},
         ),
     ]
     return out
