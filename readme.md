@@ -14,7 +14,7 @@ Then follow [this tutorial](https://www.youtube.com/watch?v=WOWVat5BgM4&t=552s)
 ```
 pip install dash
 pip install gunicorn
-pip install DashIconify
+pip install dash-iconify
 ```
 to update the requirements
 ```

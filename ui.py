@@ -70,6 +70,7 @@ def menu():
                         # dbc.Input(id="input-song", placeholder="Nom de la musique", type="text", size="lg"),
                         # style=style_menu(), xs=10, sm=10, md=4, lg=4, xl=4,
                         dmc.TextInput(
+                            '',
                             id="input-song",
                             # label="Nom de la musique",
                             # style={"width": 200},
