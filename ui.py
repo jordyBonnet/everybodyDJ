@@ -79,7 +79,7 @@ def menu():
                             radius="md",
                             style=style_menu(),
                             # fullWidth=True,
-                            icon=DashIconify(icon="material-symbols:search-rounded"),
+                            icon=[DashIconify(icon="material-symbols:search-rounded")],
                         ),
                         width={"size": 5, "offset": 0},
                     ),
