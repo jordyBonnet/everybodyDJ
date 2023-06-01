@@ -4,7 +4,7 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
 from datetime import datetime, date
-from dash_iconify import DashIconify # https://icon-sets.iconify.design/
+from dash_iconify import DashIconify # https://icon-sets.iconify.design/ ⚠️ does not work on pythoneverywhere
 
 FONT_SIZE = 28
 
